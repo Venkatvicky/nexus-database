@@ -3,9 +3,9 @@ kind: PersistentVolume
 metadata:
   name: postgresql-pv
 spec:
-  storageClassName: {{ .Values.postgresql.storage.storageClassName }}
+  storageClassName: gp3-csi
   capacity:
-    storage: {{ .Values.postgresql.storage.size }}
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
