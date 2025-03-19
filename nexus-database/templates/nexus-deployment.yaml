@@ -28,7 +28,7 @@ spec:
               value: "{{ .Values.postgresql.password }}"
           volumeMounts:
             - name: nexus-storage
-              mountPath: /nexus-data
+              mountPath: "/nexus-data"
           resources:
             requests:
               memory: "2Gi"
