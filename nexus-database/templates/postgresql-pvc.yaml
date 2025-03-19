@@ -2,10 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgresql-pvc
+  namespace: nexus
 spec:
-  storageClassName: {{ .Values.postgresql.storage.storageClassName }}
+  storageClassName: gp3-csi
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.postgresql.storage.size }}
+      storage: 10Gi
