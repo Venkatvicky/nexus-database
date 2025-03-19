@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexus-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10G"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # Remove if not using Cert-Manager
+spec:
+  ingressClassName: nginx  # Change this if using another Ingress Controller
+  tls:
+    - hosts:
+        - nexus.cloudmasa.app  # Change to your desired domain
+      secretName: nexus-tls  # TLS secret for HTTPS (if using Cert-Manager)
+  rules:
+    - host: nexus.cloudmasa.app  # Change this to your Nexus domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nexus
+                port:
+                  number: 8081

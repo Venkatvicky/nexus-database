@@ -1,0 +1,28 @@
+nexus:
+  image: sonatype/nexus3:3.71.0
+  replicaCount: 1
+  service:
+    type: LoadBalancer
+    port: 8081
+  storage:
+    size: 10Gi
+    storageClassName: gp3-csi
+  ingress:
+    enabled: true
+    host: nexus.cloudmasa.app
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "10G"
+      nginx.ingress.kubernetes.io/rewrite-target: "/"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      enabled: true
+      secretName: nexus-tls
+
+postgresql:
+  image: postgres:15
+  database: nexus
+  username: nexus
+  password: nexuspassword
+  storage:
+    size: 10Gi
+    storageClassName: gp3-csi
